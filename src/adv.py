@@ -115,3 +115,15 @@ while True:
 
     text = input('---> ')
     player_command(text)
+
+
+######### TO DO:
+#Add an on_take method to Item.
+
+# Call this method when the Item is picked up by the player.
+
+# on_take should print out "You have picked up [NAME]" when you pick up an item.
+
+# The Item can use this to run additional code when it is picked up.
+
+# Add an on_drop method to Item. Implement it similar to on_take.
