@@ -3,6 +3,7 @@ from player import Player
 from items import Item 
 
 from random import choice
+from textwrap import TextWrapper as tw
 
 # Declare items
 item_dict = {
@@ -90,6 +91,9 @@ def player_command(input_text):
 
     elif 'get' in input_text:
         try:
+            #### TO DO: 
+            ## SEE BOTTOM OF FILE
+            # sep of concerns: move this to items..
             requested_item = next(i for i in player.location.items if i.name in input_text)
             player.items.append(requested_item)
             player.location.items.remove(requested_item)
@@ -111,6 +115,7 @@ def player_command(input_text):
 
 while True:
     print(f' Current locationn: {player.location.name} '.center(100, '-'))
+    # print(tw.wrap(f' Location description: {player.location.description} ', 20)) #.center(100, '-'))
     print(f' Location description: {player.location.description} '.center(100, '-'))
 
     text = input('---> ')
