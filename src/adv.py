@@ -14,7 +14,8 @@ item_dict = {
     'gem':'ooo, sparkly!', 
     'book':'cannot read. better consult a wizard about the contents', 
     'sword':'pointy'}
-game_items = [Item(k,v) for k,v in item_dict.items()]
+# game_items = [Item(k,v) for k,v in item_dict.items()]
+game_items = [Item(name, description) for name,description in item_dict.items()]
 
 # Declare all the rooms
 room = {
@@ -38,7 +39,6 @@ earlier adventurers. The only exit is to the south.""", [choice(game_items) for 
 
 
 # Link rooms together
-
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
 room['foyer'].n_to = room['overlook']
@@ -53,7 +53,8 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
-player = Player('Sam', room['outside'])
+# player = Player('Sam', room['outside'])
+player = Player(input('Please enter your name: '), room['outside'])
 
 # Write a loop that:
 #
@@ -66,47 +67,32 @@ player = Player('Sam', room['outside'])
 #
 # If the user enters "q", quit the game.
 
+directions = ('n','s','e','w')
 
 # function for player commands
-def player_command(input_text):
-    opposite_directions = {'n':'s', 's':'n', 'e':'w', 'w':'e'}
-
-    if input_text == 'q': 
+def player_command(cmd):
+    if cmd == 'q':
         print('gg')
-        exit()  
+        exit() # why not exit(0) or exit(1)
 
-    elif input_text in opposite_directions.keys():
-        location = eval(f'player.location.{opposite_directions[input_text]}_to')
-        if location:
-            player.location = location
-        else:
-            print("You can't go there. Try another direction or command..")
+    elif cmd in directions:
+        player.move(cmd)
+    
+    elif cmd == 'info': #or 'items' 'what' in cmd:
+        print(player)
 
-    elif input_text == 'look around':
-        location_items = '\n'.join([item.name for item in player.location.items])
-        if len(location_items)==0:
-            print('there are no items in this area..')
-        else:
-            print(f'you see these items: \n{location_items}')
+    elif cmd == 'look':
+        player.look(cmd)
 
-    elif 'get' in input_text:
+    elif 'get' in cmd:
         try:
-            #### TO DO: 
-            ## SEE BOTTOM OF FILE
-            # sep of concerns: move this to items..
-            requested_item = next(i for i in player.location.items if i.name in input_text)
-            player.items.append(requested_item)
-            player.location.items.remove(requested_item)
-            print(f'you added a {requested_item.name} to your inventory!')
+            player.get_item(cmd)
         except:
             pass
 
-    elif 'drop' in input_text:
+    elif 'drop' in cmd:
         try:
-            dropped_item = next(i for i in player.items if i.name in input_text)
-            player.items.remove(dropped_item)
-            player.location.items.append(dropped_item)
-            print(f'you dropped a {dropped_item.name}!')
+            player.drop_item(cmd)
         except:
             pass
 
@@ -114,12 +100,12 @@ def player_command(input_text):
         print('Try another command..')
 
 while True:
-    print(f' Current locationn: {player.location.name} '.center(100, '-'))
+    print(f' Current location: {player.location.name} '.center(100, '-'))
     # print(tw.wrap(f' Location description: {player.location.description} ', 20)) #.center(100, '-'))
-    print(f' Location description: {player.location.description} '.center(100, '-'))
+    # print(f' Location description: {player.location.description} '.center(100, '-'))
 
-    text = input('---> ')
-    player_command(text)
+    cmd = input('>>> ')
+    player_command(cmd)
 
 
 ######### TO DO:

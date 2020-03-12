@@ -2,12 +2,21 @@
 # description attributes.
 
 class Room():
-    def __init__(self, name, description, items=[], n_to=None, s_to=None, e_to=None, w_to=None):
+    def __init__(self, name, description, items=[]):
         self.name = name 
         self.description = description
         self.items = items
-        self.n_to = n_to 
-        self.s_to = s_to 
-        self.e_to = e_to 
-        self.w_to = w_to
-        self.items = items
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
+
+    def __str__(self):
+        print(self.name)
+        print('')
+        print(self.description)
+    
+    def get_exits_string(self):
+        directions = ('n','s','e','w')
+        exits = [d for d in directions if eval(f'self.{d}_to')]
+        print(exits)
