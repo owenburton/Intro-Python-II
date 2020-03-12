@@ -67,15 +67,13 @@ player = Player(input('Please enter your name: '), room['outside'])
 #
 # If the user enters "q", quit the game.
 
-directions = ('n','s','e','w')
-
 # function for player commands
 def player_command(cmd):
     if cmd == 'q':
         print('gg')
         exit() # why not exit(0) or exit(1)
 
-    elif cmd in directions:
+    elif cmd in ('n','s','e','w'):
         player.move(cmd)
     
     elif cmd == 'info': #or 'items' 'what' in cmd:
@@ -100,9 +98,10 @@ def player_command(cmd):
         print('Try another command..')
 
 while True:
+    # print(repr(player))
     print(f' Current location: {player.location.name} '.center(100, '-'))
     # print(tw.wrap(f' Location description: {player.location.description} ', 20)) #.center(100, '-'))
-    # print(f' Location description: {player.location.description} '.center(100, '-'))
+    print(f' Location description: {player.location.description} '.center(100, '-'))
 
     cmd = input('>>> ')
     player_command(cmd)

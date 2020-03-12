@@ -36,6 +36,9 @@ class Player():
         self.location.items.append(dropped_item)
         print(f'you dropped 1 {dropped_item.name}!')
 
+    def __repr__(self):
+        return 'Player(name=%r,location=%r)' % (self.name, self.location.name)
+
     def __str__(self):
         # '''Prints all the class attribute names and values.'''
         # d = self.__dict__ 

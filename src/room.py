@@ -11,12 +11,15 @@ class Room():
         self.e_to = None
         self.w_to = None
 
+    def __repr__(self):
+        return 'Room(name=%r,description=%r)' % (self.name, self.description)
+        
     def __str__(self):
         print(self.name)
         print('')
         print(self.description)
     
-    def get_exits_string(self):
-        directions = ('n','s','e','w')
-        exits = [d for d in directions if eval(f'self.{d}_to')]
-        print(exits)
+    # def get_exits_string(self):
+    #     directions = ('n','s','e','w')
+    #     exits = [d for d in directions if eval(f'self.{d}_to')]
+    #     print(exits)

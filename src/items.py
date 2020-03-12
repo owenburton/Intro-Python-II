@@ -9,6 +9,13 @@ class Item():
         self.description = description
         self.with_player = False
         self.edible = False
+    
+    def __repr__(self):
+        return 'Item(name=%r,description=%r)' % (self.name, self.description)
+    
+    def __str__(self):
+        return f"{self.name}'s description: {self.description}"
+
 
 
 # class Food(Item):
